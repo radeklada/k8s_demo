@@ -1,0 +1,16 @@
+persistence:
+  enabled: true
+  storageClassName: "" 
+  accessModes:
+    - ReadWriteOnce
+  size: 5Gi 
+
+adminUser: admin
+adminPassword: admin 
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false

@@ -1,0 +1,23 @@
+controller:
+  service:
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+  admin:
+    username: admin
+    password: admin123
+
+persistence:
+  enabled: true 
+  size: 8Gi
+  storageClass: ""
+  accessMode: ReadWriteOnce
+  volumes:
+    - name: jenkins-home
+      persistentVolumeClaim:
+        claimName: jenkins-pvc
+
+volumes:
+  - name: jenkins-home
+    persistentVolumeClaim:
+      claimName: jenkins-pvc

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Text Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 5px;
+            font-size: 14px;
+        }
+        button {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+        .btn-add, .btn-edit {
+            background-color: blue;
+            color: white;
+        }
+        .btn-delete {
+            background-color: red;
+            color: white;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flask Text Manager</h1>
+    <form action="{{ url_for('add_text') }}" method="POST">
+        <input type="text" name="content" placeholder="Enter new text" required>
+        <button type="submit" class="btn-add">Add Text</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Content</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for id, content in texts %}
+            <tr>
+                <td>{{ id }}</td>
+                <td>{{ content }}</td>
+                <td>
+                    <form action="{{ url_for('edit_text', id=id) }}" method="POST" style="display: inline;">
+                        <input type="text" name="content" value="{{ content }}" required>
+                        <button type="submit" class="btn-edit">Edit</button>
+                    </form>
+                    <form action="{{ url_for('delete_text', id=id) }}" method="POST" style="display: inline;">
+                        <button type="submit" class="btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
