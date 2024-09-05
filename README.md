@@ -5,8 +5,8 @@
 Ensure the following tools are installed and properly configured on your system before proceeding:
 
 - **Docker Desktop** (with Kubernetes enabled)
-- **Helm** (for managing Kubernetes applications)
 - **kubectl** (for interacting with your Kubernetes cluster)
+- **Helm** (for managing Kubernetes applications)
 
 **Optional but recommended:**
 - **k9s** (for a better CLI experience when working with Kubernetes)
@@ -64,6 +64,7 @@ Navigate to your main directory and deploy the required services and application
     Add the Jenkins Helm repo and deploy Jenkins using Helm:
     ```bash
     helm repo add jenkins https://charts.jenkins.io
+    helm install jenkins jenkins/jenkins --namespace jenkins -f jenkins-values.yaml
     ```
 
 6. **Prometheus**: 
@@ -97,12 +98,12 @@ http://localhost
 Run the following command to forward Jenkins service to your local machine:
 
 ```bash
-kubectl port-forward -n jenkins svc/jenkins-service 8081:8080
+kubectl port-forward --namespace jenkins svc/jenkins 18080:8080
 ```
 
 Access Jenkins at:  
 ```
-http://localhost:8081
+http://localhost:18080
 ```
 
 ### Exposing Prometheus
@@ -149,3 +150,5 @@ To visualize Prometheus metrics in Grafana, add the following Prometheus URL as 
 ```
 http://prometheus-server.prometheus.svc.cluster.local:9090
 ```
+
+You can import k8s dashboard from file k8s_dashboard.json
